@@ -15,6 +15,6 @@ Nginx / Mariadb / PHP 8.1 + modules / phpMyAdmin / nodeJS / SSL Let's Encrypt / 
 قم بنسخ الامر ال
 
 
-	wget https://is.gd/nFUWHt -O SLEMP.sh && chmod +x SLEMP.sh && ./SLEMP.sh
+	wget https://is.gd/nFUWHt -O LEMP.sh && chmod +x LEMP.sh
  
  
