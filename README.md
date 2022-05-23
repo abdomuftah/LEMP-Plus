@@ -17,4 +17,8 @@ Nginx / Mariadb / PHP 8.1 + modules / phpMyAdmin / nodeJS / SSL Let's Encrypt / 
 
 	wget https://is.gd/nFUWHt -O LEMP.sh && chmod +x LEMP.sh
  
+
+ثم قم بتشغيله عن طريق الامر التالي 
+
+	./LEMP.sh
  
