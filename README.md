@@ -22,3 +22,20 @@ Nginx / Mariadb / PHP 8.1 + modules / phpMyAdmin / nodeJS / SSL Let's Encrypt / 
 
 	./LEMP.sh
  
+## Spical Script Server :
+
+this script will install and enable the following tools :
+
+
+Nginx / Mariadb / PHP 8.1 + modules / phpMyAdmin / nodeJS / SSL Let's Encrypt / glances 
+
+copy this command : 
+
+
+	wget https://is.gd/nFUWHt -O LEMP.sh && chmod +x LEMP.sh
+ 
+
+then run it with :
+
+	./LEMP.sh
+ 
