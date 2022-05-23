@@ -121,7 +121,7 @@ mv /etc/nginx/sites-available/Example.conf /etc/nginx/sites-available/$domain.co
 sed -i "s/example.com/$domain/g" /etc/nginx/sites-available/$domain.conf
 rm /etc/nginx/sites-available/000-default.conf
 wget -P /var/www/html/$domain https://raw.githubusercontent.com/abdomuftah/LEMP-Plus/main/assets/index.php
-a2ensite $domain
+ln -s /etc/nginx/sites-available/$domain /etc/nginx/sites-enabled/ 
 systemctl reload nginx
 service php8.1-fpm reload
 #

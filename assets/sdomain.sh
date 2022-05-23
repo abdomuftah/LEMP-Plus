@@ -17,7 +17,7 @@ wget -P /etc/nginx/sites-available https://raw.githubusercontent.com/abdomuftah/
 mv /etc/nginx/sites-available/Example.conf /etc/nginx/sites-available/$sdomain.conf
 sed -i "s/example.com/$sdomain/g" /etc/nginx/sites-available/$sdomain.conf
 wget -P /var/www/html/$sdomain https://raw.githubusercontent.com/abdomuftah/LEMP-Plus/main/assets/index.php
-a2ensite $sdomain
+ln -s /etc/nginx/sites-available/$domain /etc/nginx/sites-enabled/ 
 systemctl restart nginx
 certbot --noninteractive --agree-tos --no-eff-email --cert-name $sdomain --nginx --redirect -d $sdomain -m $semail
 systemctl restart nginx.service
