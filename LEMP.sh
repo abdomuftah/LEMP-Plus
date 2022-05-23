@@ -96,18 +96,18 @@ apt-get install -y phpmyadmin php8.1-gettext
 echo "=================================="
 echo "Update php.ini file "
 echo "=================================="
-wget https://raw.githubusercontent.com/abdomuftah/UbuntuServer/main/assets/php.ini && mv -f php.ini /etc/php/8.1/nginx/
+wget https://raw.githubusercontent.com/abdomuftah/LEMP-Plus/main/assets/php.ini && mv -f php.ini /etc/php/8.1/nginx/
 #
 a2enmod rewrite
 systemctl reload nginx
 systemctl reload nginx
 #
 mkdir /var/www/html/$domain
-wget -P /etc/nginx/sites-available https://raw.githubusercontent.com/abdomuftah/UbuntuServer/main/assets/Example.conf
+wget -P /etc/nginx/sites-available https://raw.githubusercontent.com/abdomuftah/LEMP-Plus/main/assets/Example.conf
 mv /etc/nginx/sites-available/Example.conf /etc/nginx/sites-available/$domain.conf
 sed -i "s/example.com/$domain/g" /etc/nginx/sites-available/$domain.conf
 rm /etc/nginx/sites-available/000-default.conf
-wget -P /var/www/html/$domain https://raw.githubusercontent.com/abdomuftah/UbuntuServer/main/assets/index.php
+wget -P /var/www/html/$domain https://raw.githubusercontent.com/abdomuftah/LEMP-Plus/main/assets/index.php
 a2ensite $domain
 systemctl reload nginx
 service php8.1-fpm reload
@@ -129,7 +129,7 @@ systemctl reload nginx
 echo "=================================="
 echo "Fixing MySQL And phpMyAdmin"
 echo "=================================="
-wget https://raw.githubusercontent.com/abdomuftah/UbuntuServer/main/assets/fix.sql
+wget https://raw.githubusercontent.com/abdomuftah/LEMP-Plus/main/assets/fix.sql
 mysql -u root < fix.sql 
 service mysql restart
 systemctl reload nginx
@@ -146,10 +146,10 @@ systemctl reload nginx
 echo "=================================="
 echo "Installing glances "
 echo "=================================="
-wget  https://raw.githubusercontent.com/abdomuftah/UbuntuServer/main/assets/glances.sh
+wget  https://raw.githubusercontent.com/abdomuftah/LEMP-Plus/main/assets/glances.sh
 chmod +x glances.sh
 ./glances.sh
-wget -P /etc/systemd/system/ https://raw.githubusercontent.com/abdomuftah/UbuntuServer/main/assets/glances.service
+wget -P /etc/systemd/system/ https://raw.githubusercontent.com/abdomuftah/LEMP-Plus/main/assets/glances.service
 systemctl start glances.service
 systemctl enable glances.service
 rm glances.sh
@@ -160,7 +160,7 @@ add-apt-repository -r ppa:webupd8team/java -y
 add-apt-repository -r ppa:chris-lea/redis-server -y
 add-apt-repository -r ppa:deadsnakes/ppa -y
 #
-wget https://raw.githubusercontent.com/abdomuftah/UbuntuServer/main/assets/domain.sh
+wget https://raw.githubusercontent.com/abdomuftah/LEMP-Plus/main/assets/domain.sh
 chmod +x domain.sh
 #
 apt update
