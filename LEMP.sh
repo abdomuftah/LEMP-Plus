@@ -60,6 +60,7 @@ systemctl start nginx.service
 systemctl enable nginx.service
 #
 ufw app list
+ufw allow 'Nginx HTTP'
 ufw allow in 80
 ufw allow in 443
 #
