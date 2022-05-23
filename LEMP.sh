@@ -76,9 +76,9 @@ systemctl enable mariadb.service
 #mysql_secure_installation
 wget https://raw.githubusercontent.com/abdomuftah/LEMP-Plus/main/assets/mysql_secure_installation.sh
 sed -i "s/complex_password/$sqpass/g" /root/mysql_secure_installation.sh
-chmod +x /root/mysql_secure_installation.sh
-./root/mysql_secure_installation.sh
-rm ./root/mysql_secure_installation.sh
+chmod +x mysql_secure_installation.sh
+./mysql_secure_installation.sh
+rm mysql_secure_installation.sh
 #
 systemctl restart mysql.service
 #
