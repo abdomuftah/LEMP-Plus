@@ -14,7 +14,7 @@ echo ""
 #
 read -p 'Set Web Domain (Example: 127.0.0.1 [Not trailing slash!]) : ' domain
 read -p 'Email for Lets Encrypt SSL : ' email
-
+read -p 'mySql Password  : ' sqpass
 #
 apt update
 apt upgrade -y
@@ -71,6 +71,8 @@ systemctl start mariadb.service
 systemctl enable mariadb.service
 #
 mysql_secure_installation
+wget https://raw.githubusercontent.com/abdomuftah/LEMP-Plus/main/assets/mysql_secure_installation.sh
+sed -i "s/complex_password/$sqpass/g" /root/mysql_secure_installation.sh
 #
 systemctl restart mysql.service
 #
@@ -161,8 +163,8 @@ add-apt-repository -r ppa:webupd8team/java -y
 add-apt-repository -r ppa:chris-lea/redis-server -y
 add-apt-repository -r ppa:deadsnakes/ppa -y
 #
-wget https://raw.githubusercontent.com/abdomuftah/LEMP-Plus/main/assets/domain.sh
-chmod +x domain.sh
+wget https://raw.githubusercontent.com/abdomuftah/LEMP-Plus/main/assets/sdomain.sh
+chmod +x sdomain.sh
 #
 apt update
 apt upgrade -y
