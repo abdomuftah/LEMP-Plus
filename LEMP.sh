@@ -39,9 +39,10 @@ apt upgrade -y
 apt-get update 
 apt-get upgrade -y
 #
-echo "=================================="
+echo "=========================================="
 echo " install some tools to help you more :) "
-echo "=================================="
+echo "=========================================="
+sleep 3
 apt-get install -y screen nano curl git zip unzip ufw certbot python3-certbot-nginx
 curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
 apt-get install -y python3.7 libmysqlclient-dev python3-dev python3-pip 
@@ -49,8 +50,9 @@ python3 get-pip.py
 python3 -m pip install Django
 #
 echo "=================================="
-echo "installing nginx"
+echo "          installing nginx"
 echo "=================================="
+sleep 3
 apt install nginx -y
 #
 systemctl stop nginx.service
@@ -62,8 +64,9 @@ ufw allow in 80
 ufw allow in 443
 #
 echo "=================================="
-echo "installing mySQL :"
+echo "      installing mySQL :"
 echo "=================================="
+sleep 3
 apt-get -y install mariadb-server mariadb-client
 #
 systemctl stop mariadb.service
@@ -85,14 +88,16 @@ apt-get update
 apt-get upgrade -y
 #
 echo "=================================="
-echo "installing PHP 8.1 + modules"
+echo "   installing PHP 8.1 + modules"
 echo "=================================="
+sleep 3
 apt -y install php8.1 php8.1-curl php8.1-common php8.1-cli php8.1-mysql php8.1-sqlite3 php8.1-intl php8.1-gd php8.1-mbstring php8.1-fpm php8.1-xml php8.1-zip php8.1-bcmath php8.1-sqlite3 php8.1-gd php8.1-intl php8.1-exif libnginx-mod-php8.1 php8.1-xmlrpc php8.1-soap php8.1-bz2  php8.1-pdo php8.1-tokenizer php8.1-imagick php8.1-tidy tar redis-server sed composer
 systemctl reload nginx
 #
 echo "=================================="
-echo "Install and Secure phpMyAdmin"
+echo "  Install and Secure phpMyAdmin"
 echo "=================================="
+sleep 3
 apt update
 apt upgrade -y
 apt-get update 
@@ -100,8 +105,9 @@ apt-get upgrade -y
 apt-get install -y phpmyadmin php8.1-gettext
 #
 echo "=================================="
-echo "Update php.ini file "
+echo "      Update php.ini file "
 echo "=================================="
+sleep 3
 wget https://raw.githubusercontent.com/abdomuftah/LEMP-Plus/main/assets/php.ini && cp  -f php.ini /etc/php/8.1/nginx/ && mv -f php.ini /etc/php/8.1/fpm/
 #
 a2enmod rewrite
@@ -124,8 +130,9 @@ apt-get update
 apt-get upgrade -y
 #
 echo "=================================="
-echo "Installing nodeJS"
+echo "      Installing nodeJS"
 echo "=================================="
+sleep 3
 apt-get install -y gcc g++ make nodejs npm 
 #
 apt update -y && apt upgrade -y
@@ -133,8 +140,9 @@ apt-get update && apt-get upgrade -y
 systemctl reload nginx
 #
 echo "=================================="
-echo "Fixing MySQL And phpMyAdmin"
+echo "    Fixing MySQL And phpMyAdmin"
 echo "=================================="
+sleep 3
 wget https://raw.githubusercontent.com/abdomuftah/LEMP-Plus/main/assets/fix.sql
 mysql -u root < fix.sql 
 service mysql restart
@@ -142,16 +150,18 @@ systemctl reload nginx
 rm fix.sql 
 #
 echo "=================================="
-echo "Installing Let's Encrypt "
+echo "      Installing Let's Encrypt "
 echo "=================================="
+sleep 3
 certbot --noninteractive --agree-tos --no-eff-email --cert-name $domain --nginx --redirect -d $domain -m $email
 systemctl reload nginx
 certbot renew --dry-run
 systemctl reload nginx
 #
 echo "=================================="
-echo "Installing glances "
+echo "      Installing glances "
 echo "=================================="
+sleep 3
 wget  https://raw.githubusercontent.com/abdomuftah/LEMP-Plus/main/assets/glances.sh
 chmod +x glances.sh
 ./glances.sh
