@@ -28,7 +28,7 @@ apt-add-repository ppa:webupd8team/java -y
 add-apt-repository ppa:ondrej/php -y
 add-apt-repository ppa:phpmyadmin/ppa -y
 add-apt-repository ppa:deadsnakes/ppa -y
-add-apt-repository ppa:certbot/certbot
+add-apt-repository ppa:certbot/certbot -y
 add-apt-repository -y ppa:chris-lea/redis-server
 apt -y install lsb-release apt-transport-https ca-certificates wget -y
 wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
