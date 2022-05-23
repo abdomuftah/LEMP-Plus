@@ -14,3 +14,4 @@ DELETE FROM mysql.db WHERE Db='test' OR Db='test\\_%';
 -- make changes immediately
 FLUSH PRIVILEGES;
 EOS
+exit

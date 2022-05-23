@@ -70,9 +70,12 @@ systemctl stop mariadb.service
 systemctl start mariadb.service
 systemctl enable mariadb.service
 #
-mysql_secure_installation
+#mysql_secure_installation
 wget https://raw.githubusercontent.com/abdomuftah/LEMP-Plus/main/assets/mysql_secure_installation.sh
 sed -i "s/complex_password/$sqpass/g" /root/mysql_secure_installation.sh
+chmod +x /root/mysql_secure_installation.sh
+./root/mysql_secure_installation.sh
+rm ./root/mysql_secure_installation.sh
 #
 systemctl restart mysql.service
 #
@@ -99,7 +102,7 @@ apt-get install -y phpmyadmin php8.1-gettext
 echo "=================================="
 echo "Update php.ini file "
 echo "=================================="
-wget https://raw.githubusercontent.com/abdomuftah/LEMP-Plus/main/assets/php.ini && mv -f php.ini /etc/php/8.1/nginx/
+wget https://raw.githubusercontent.com/abdomuftah/LEMP-Plus/main/assets/php.ini && cp  -f php.ini /etc/php/8.1/nginx/ && mv -f php.ini /etc/php/8.1/fpm/
 #
 a2enmod rewrite
 systemctl reload nginx

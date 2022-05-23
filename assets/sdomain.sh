@@ -30,7 +30,7 @@ echo "https://twitter.com/Scar_Naruto"
 echo "Join My Discord Server "
 echo "https://discord.snyt.xyz"
 echo "##################################"
-echo " ypur Domain is now ready  : "
+echo " Your Domain is now ready  : "
 echo "https://$sdomain 	"
 #
 exit
