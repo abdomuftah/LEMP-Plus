@@ -28,7 +28,6 @@ apt-add-repository ppa:webupd8team/java -y
 add-apt-repository ppa:ondrej/php -y
 add-apt-repository ppa:phpmyadmin/ppa -y
 add-apt-repository ppa:deadsnakes/ppa -y
-add-apt-repository ppa:certbot/certbot -y
 add-apt-repository -y ppa:chris-lea/redis-server
 apt -y install lsb-release apt-transport-https ca-certificates wget -y
 wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
@@ -74,13 +73,7 @@ systemctl stop mariadb.service
 systemctl start mariadb.service
 systemctl enable mariadb.service
 #
-#mysql_secure_installation
-wget https://raw.githubusercontent.com/abdomuftah/LEMP-Plus/main/assets/mysql_secure_installation.sh
-sed -i "s/complex_password/$sqpass/g" /root/mysql_secure_installation.sh
-chmod +x mysql_secure_installation.sh
-./mysql_secure_installation.sh
-rm mysql_secure_installation.sh
-#
+mysql_secure_installation
 systemctl restart mysql.service
 #
 apt update
