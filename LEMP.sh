@@ -28,7 +28,6 @@ apt-add-repository ppa:webupd8team/java -y
 add-apt-repository ppa:ondrej/php -y
 add-apt-repository ppa:phpmyadmin/ppa -y
 add-apt-repository ppa:deadsnakes/ppa -y
-add-apt-repository -y ppa:chris-lea/redis-server
 apt -y install lsb-release apt-transport-https ca-certificates wget -y
 wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
 echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | tee /etc/apt/sources.list.d/php.list
@@ -85,7 +84,7 @@ echo "=================================="
 echo "   installing PHP 8.1 + modules"
 echo "=================================="
 sleep 3
-apt -y install php8.1 php8.1-curl php8.1-common php8.1-cli php8.1-mysql php8.1-mbstring php8.1-fpm php8.1-xml php8.1-zip php8.1-bcmath php8.1-sqlite3 php8.1-gd php8.1-intl php8.1-dev php8.1-imap php8.1-opcache php8.1-exif php8.1-xmlrpc php8.1-soap php8.1-bz2 php8.1-pdo php8.1-tokenizer php8.1-imagick php8.1-tidy
+apt -y install php8.1 php8.1-curl php8.1-common php8.1-cli php8.1-mysql php8.1-mbstring php8.1-fpm php8.1-xml php8.1-zip php8.1-bcmath php8.1-sqlite3 php8.1-gd php8.1-intl php8.1-dev php8.1-imap php8.1-opcache php8.1-xmlrpc php8.1-soap php8.1-bz2 php8.1-imagick php8.1-tidy
 apt -y install tar sed composer
 systemctl reload nginx
 #
