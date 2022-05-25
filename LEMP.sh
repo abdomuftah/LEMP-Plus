@@ -27,7 +27,7 @@ apt-get install software-properties-common -y
 apt-add-repository ppa:webupd8team/java -y
 add-apt-repository ppa:ondrej/php -y
 add-apt-repository ppa:phpmyadmin/ppa -y
-add-apt-repository ppa:deadsnakes/ppa -y
+#add-apt-repository ppa:deadsnakes/ppa -y
 apt -y install lsb-release apt-transport-https ca-certificates wget -y
 wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
 echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | tee /etc/apt/sources.list.d/php.list
@@ -41,8 +41,8 @@ echo "=========================================="
 echo " install some tools to help you more :) "
 echo "=========================================="
 sleep 3
-apt-get install -y screen nano curl git zip unzip ufw certbot python3-certbot-nginx
-apt-get install -y python3.7 python3-dev python3-pip 
+apt-get install -y screen nano curl git zip unzip ufw certbot 
+#apt-get install -y python3.7 python3-dev python3-pip 
 #
 echo "=================================="
 echo "          installing nginx"
