@@ -42,7 +42,7 @@ echo " install some tools to help you more :) "
 echo "=========================================="
 sleep 3
 apt-get install -y screen nano curl git zip unzip ufw certbot python3-certbot-nginx
-apt-get install -y python3.7 libmysqlclient-dev python3-dev python3-pip 
+apt-get install -y python3.7 python3-dev python3-pip 
 #
 echo "=================================="
 echo "          installing nginx"
