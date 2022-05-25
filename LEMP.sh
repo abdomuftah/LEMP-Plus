@@ -42,10 +42,7 @@ echo " install some tools to help you more :) "
 echo "=========================================="
 sleep 3
 apt-get install -y screen nano curl git zip unzip ufw certbot python3-certbot-nginx
-curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
 apt-get install -y python3.7 libmysqlclient-dev python3-dev python3-pip 
-python3 get-pip.py
-python3 -m pip install Django
 #
 echo "=================================="
 echo "          installing nginx"
@@ -58,9 +55,8 @@ systemctl start nginx.service
 systemctl enable nginx.service
 #
 ufw app list
-ufw allow 'Nginx HTTP'
-ufw allow in 80
-ufw allow in 443
+ufw allow 'Nginx Full'
+ufw allow OpenSSH
 #
 echo "=================================="
 echo "      installing mySQL :"
@@ -75,11 +71,6 @@ systemctl enable mariadb.service
 mysql_secure_installation
 systemctl restart mysql.service
 #
-apt update
-apt upgrade -y
-apt-get update 
-apt-get upgrade -y
-#
 echo "=================================="
 echo "   installing PHP 8.1 + modules"
 echo "=================================="
@@ -92,10 +83,6 @@ echo "=================================="
 echo "  Install and Secure phpMyAdmin"
 echo "=================================="
 sleep 3
-apt update
-apt upgrade -y
-apt-get update 
-apt-get upgrade -y
 apt-get install -y phpmyadmin php8.1-gettext
 #
 echo "=================================="
