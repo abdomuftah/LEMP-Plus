@@ -166,8 +166,6 @@ apt-get update
 apt-get upgrade -y
 clear
 #
-exit
-#
 echo "your PHP Ver is :"
 php -v 
 #
