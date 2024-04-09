@@ -48,6 +48,21 @@
         .social-icons a:hover {
             color: #007bff;
         }
+        .glances-button {
+            background-color: #007bff;
+            color: #ffffff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+        .glances-button:hover {
+            background-color: #0056b3;
+        }
+        footer {
+            margin-top: 20px;
+            text-align: center;
+            color: #999999;
+        }
     </style>
 </head>
 <body>
@@ -61,7 +76,6 @@
                 <p><strong>Server IP:</strong> <?php echo $_SERVER['SERVER_ADDR']; ?></p>
                 <p><strong>Server Port:</strong> <?php echo $_SERVER['SERVER_PORT']; ?></p>
                 <p><strong>Server Protocol:</strong> <?php echo $_SERVER['SERVER_PROTOCOL']; ?></p>
-                <p><strong>Server Signature:</strong> <?php echo $_SERVER['SERVER_SIGNATURE']; ?></p>
             </div>
         </div>
 
@@ -102,5 +116,8 @@
             </div>
         </div>
     </div>
+    <footer>
+        &copy; 2024 ScarNaruto. All rights reserved.
+    </footer>
 </body>
 </html>
