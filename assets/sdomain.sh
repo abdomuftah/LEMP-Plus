@@ -13,16 +13,20 @@ read -p 'Set Web Domain (Example: 127.0.0.1 [Not trailing slash!]) : ' sdomain
 read -p 'Email for Lets Encrypt SSL : ' semail
 #
 mkdir /var/www/html/$sdomain
+chown -R $USER:$USER /var/www/html/$sdomain
 wget -P /etc/nginx/sites-available https://raw.githubusercontent.com/abdomuftah/LEMP-Plus/main/assets/Example.conf
 mv /etc/nginx/sites-available/Example.conf /etc/nginx/sites-available/$sdomain.conf
 sed -i "s/example.com/$sdomain/g" /etc/nginx/sites-available/$sdomain.conf
 wget -P /var/www/html/$sdomain https://raw.githubusercontent.com/abdomuftah/LEMP-Plus/main/assets/index.php
-ln -s /etc/nginx/sites-available/$domain /etc/nginx/sites-enabled/ 
-systemctl restart nginx
+ln -s /etc/nginx/sites-available/$sdomain.conf /etc/nginx/sites-enabled/ 
+#
+systemctl reload nginx
 certbot --noninteractive --agree-tos --no-eff-email --cert-name $sdomain --nginx --redirect -d $sdomain -m $semail
-systemctl restart nginx.service
+systemctl reload nginx
 certbot renew --dry-run
-systemctl restart nginx.service
+systemctl reload nginx
+service php8.1-fpm reload
+#
 clear
 echo "##################################"
 echo "You Can Thank Me On :) "
