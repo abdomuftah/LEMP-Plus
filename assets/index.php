@@ -45,17 +45,14 @@
             text-decoration: none;
             font-size: 20px;
         }
-        .social-icons a:hover {
-            color: #007bff;
-        }
-        .glances-button {
+        .glances-button, .phpmyadmin-button, .discord-button, .twitter-button {
             background-color: #007bff;
             color: #ffffff;
             padding: 10px 20px;
             border-radius: 5px;
             text-decoration: none;
         }
-        .glances-button:hover {
+        .glances-button:hover, .phpmyadmin-button:hover, .discord-button:hover, .twitter-button:hover {
             background-color: #0056b3;
         }
         footer {
@@ -111,9 +108,10 @@
         <div class="section">
             <h2>Connect with Me</h2>
             <div class="social-icons">
-                <a href="https://twitter.com/ScarNaruto" target="_blank">Twitter</a>
-                <a href="https://discord.snyt.xyz" target="_blank">Discord</a>
-               <a href="http://<?php echo $_SERVER['SERVER_ADDR']; ?>:61208" class="glances-button" target="_blank">Open Glances</a>
+                <a href="https://twitter.com/ScarNaruto" class="twitter-button" target="_blank">Twitter</a>
+                <a href="https://discord.snyt.xyz" class="discord-button" target="_blank">Discord</a>
+                <a href="http://example.com:61208" class="glances-button" target="_blank">Open Glances</a>
+                <a href="https://example.com/phpmyadmin" class="phpmyadmin-button" target="_blank">phpMyAdmin</a>
             </div>
         </div>
     </div>
