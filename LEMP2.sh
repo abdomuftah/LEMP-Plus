@@ -128,9 +128,11 @@ sed -i "s/example.com/$domain/g" /etc/nginx/sites-available/$domain.conf
 wget -P /var/www/html/$domain https://raw.githubusercontent.com/abdomuftah/LEMP-Plus/main/assets/index.php
 ln -s /etc/nginx/sites-available/$domain.conf /etc/nginx/sites-enabled/ 
 rm /var/www/html/index.nginx-debian.html 
+mv /etc/nginx/snippets/fastcgi-php.conf /etc/nginx/snippets/back-fastcgi-php.conf
+wget -P /etc/nginx/snippets/ https://raw.githubusercontent.com/abdomuftah/LEMP-Plus/main/assets/fastcgi-php.conf
+systemctl start nginx
 systemctl reload nginx
 service php8.1-fpm reload
-
 
 # Install Node.js
 echo "=========================================="
