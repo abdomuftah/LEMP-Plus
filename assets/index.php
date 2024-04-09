@@ -113,6 +113,7 @@
             <div class="social-icons">
                 <a href="https://twitter.com/ScarNaruto" target="_blank">Twitter</a>
                 <a href="https://discord.snyt.xyz" target="_blank">Discord</a>
+               <a href="http://<?php echo $_SERVER['SERVER_ADDR']; ?>:61208" class="glances-button" target="_blank">Open Glances</a>
             </div>
         </div>
     </div>
