@@ -74,6 +74,14 @@ echo "   installing PHP 8.1 + modules"
 echo "=================================="
 sleep 3
 apt -y install php8.1 php8.1-curl php8.1-common php8.1-cli php8.1-mysql php8.1-sqlite3 php8.1-intl php8.1-gd php8.1-mbstring php8.1-fpm php8.1-xml php8.1-redis php8.1-zip php8.1-bcmath php8.1-gd php8.1-simplexml php8.1-tokenizer php8.1-dom php8.1-fileinfo php8.1-iconv php8.1-ctype php8.1-intl php8.1-xmlrpc php8.1-soap php8.1-bz2 php8.1-imagick php8.1-tidy
+#
+systemctl enable nginx
+systemctl start nginx
+systemctl enable mariadb
+systemctl start mariadb
+systemctl enable php8.1-fpm
+systemctl start php8.1-fpm
+#
 systemctl reload nginx
 #
 apt -y install tar redis-server sed composer
@@ -85,6 +93,7 @@ echo "  Install and Secure phpMyAdmin"
 echo "=================================="
 sleep 3
 apt-get install -y phpmyadmin
+sudo ln -s /usr/share/phpmyadmin /var/www/html/phpmyadmin
 #
 echo "=================================="
 echo "      Update php.ini file "
@@ -92,18 +101,18 @@ echo "=================================="
 sleep 3
 wget https://raw.githubusercontent.com/abdomuftah/LEMP-Plus/main/assets/php.ini && cp  -f php.ini /etc/php/8.1/cli/ && mv -f php.ini /etc/php/8.1/fpm/
 #
-a2enmod rewrite
 systemctl reload nginx
 service php8.1-fpm reload
 #
 mkdir /var/www/html/$domain
 chown -R $USER:$USER /var/www/html/$domain
 wget -P /etc/nginx/sites-available https://raw.githubusercontent.com/abdomuftah/LEMP-Plus/main/assets/Example
-mv nano /etc/nginx/sites-available/Example nano nano /etc/nginx/sites-available/$domain.conf
-sed -i "s/example.com/$domain/g" nano /etc/nginx/sites-available/$domain.conf
-#rm nano /etc/nginx/sites-available/000-default.conf
+mv /etc/nginx/sites-available/Example /etc/nginx/sites-available/$domain
+sed -i "s/example.com/$domain/g" /etc/nginx/sites-available/$domain
+unlink /etc/nginx/sites-enabled/default
 wget -P /var/www/html/$domain https://raw.githubusercontent.com/abdomuftah/LEMP-Plus/main/assets/index.php
-ln -s nano /etc/nginx/sites-available/$domain /etc/nginx/sites-enabled/ 
+ln -s /etc/nginx/sites-available/$domain /etc/nginx/sites-enabled/ 
+rm /var/www/html/index.nginx-debian.html 
 systemctl reload nginx
 service php8.1-fpm reload
 #
@@ -151,7 +160,6 @@ systemctl start glances.service
 systemctl enable glances.service
 rm glances.sh
 #
-a2enmod php8.1
 update-alternatives --set php /usr/bin/php8.1
 systemctl reload nginx
 service php8.1-fpm reload
