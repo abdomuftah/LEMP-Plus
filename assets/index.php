@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Server Information</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -39,21 +40,18 @@
             margin-top: 20px;
         }
         .social-icons a {
-            display: inline-block;
-            margin-right: 10px;
+            display: inline-flex;
+            align-items: center;
+            margin-right: 20px;
             color: #ffffff;
             text-decoration: none;
-            font-size: 20px;
+            font-size: 18px;
         }
-        .glances-button, .phpmyadmin-button, .discord-button, .twitter-button {
-            background-color: #007bff;
-            color: #ffffff;
-            padding: 10px 20px;
-            border-radius: 5px;
-            text-decoration: none;
+        .social-icons a i {
+            margin-right: 5px;
         }
-        .glances-button:hover, .phpmyadmin-button:hover, .discord-button:hover, .twitter-button:hover {
-            background-color: #0056b3;
+        .social-icons a:hover {
+            color: #007bff;
         }
         footer {
             margin-top: 20px;
@@ -73,45 +71,37 @@
                 <p><strong>Server IP:</strong> <?php echo $_SERVER['SERVER_ADDR']; ?></p>
                 <p><strong>Server Port:</strong> <?php echo $_SERVER['SERVER_PORT']; ?></p>
                 <p><strong>Server Protocol:</strong> <?php echo $_SERVER['SERVER_PROTOCOL']; ?></p>
+                <p><strong>Server Uptime:</strong> <?php echo shell_exec('uptime -p'); ?></p>
+                <p><strong>CPU Cores:</strong> <?php echo shell_exec('nproc'); ?></p>
+                <p><strong>Operating System:</strong> <?php echo php_uname('s'); ?></p>
+                <p><strong>Hostname:</strong> <?php echo php_uname('n'); ?></p>
             </div>
         </div>
 
         <div class="section">
-            <h2>System Resources</h2>
+            <h2>Disk Usage</h2>
             <div class="info">
-                <?php
-                function formatBytes($bytes, $precision = 2) {
-                    $units = array('B', 'KB', 'MB', 'GB', 'TB');
-                    $bytes = max($bytes, 0);
-                    $pow = floor(($bytes ? log($bytes) : 0) / log(1024));
-                    $pow = min($pow, count($units) - 1);
-                    $bytes /= (1 << (10 * $pow));
-                    return round($bytes, $precision) . ' ' . $units[$pow];
-                }
-
-                echo '<p><strong>Total Memory:</strong> ' . formatBytes(memory_get_usage(true)) . '</p>';
-                echo '<p><strong>Free Memory:</strong> ' . formatBytes(memory_get_usage()) . '</p>';
-                ?>
+                <p><strong>Total Disk Space:</strong> <?php echo shell_exec('df -h / | awk \'NR==2 {print $2}\''); ?></p>
+                <p><strong>Used Disk Space:</strong> <?php echo shell_exec('df -h / | awk \'NR==2 {print $3}\''); ?></p>
+                <p><strong>Free Disk Space:</strong> <?php echo shell_exec('df -h / | awk \'NR==2 {print $4}\''); ?></p>
             </div>
         </div>
 
         <div class="section">
-            <h2>PHP Settings</h2>
+            <h2>phpMyAdmin Credentials</h2>
             <div class="info">
-                <?php
-                echo '<p><strong>PHP Version:</strong> ' . phpversion() . '</p>';
-                echo '<p><strong>PHP Configuration File (php.ini) Path:</strong> ' . php_ini_loaded_file() . '</p>';
-                ?>
+                <p><strong>Username:</strong> root</p>
+                <p><strong>Password:</strong> <?php echo isset($mysql_root_password) ? $mysql_root_password : 'Set password in script'; ?></p>
             </div>
         </div>
-
+        
         <div class="section">
             <h2>Connect with Me</h2>
             <div class="social-icons">
-                <a href="https://twitter.com/ScarNaruto" class="twitter-button" target="_blank">Twitter</a>
-                <a href="https://discord.snyt.xyz" class="discord-button" target="_blank">Discord</a>
-                <a href="http://example.com:61208" class="glances-button" target="_blank">Open Glances</a>
-                <a href="https://example.com/phpmyadmin" class="phpmyadmin-button" target="_blank">phpMyAdmin</a>
+                <a href="https://twitter.com/ScarNaruto" class="twitter-button" target="_blank"><i class="fab fa-twitter"></i> Twitter</a>
+                <a href="https://discord.snyt.xyz" class="discord-button" target="_blank"><i class="fab fa-discord"></i> Discord</a>
+                <a href="http://example.com:61208" class="glances-button" target="_blank"><i class="fas fa-chart-line"></i> Open Glances</a>
+                <a href="https://example.com/phpmyadmin" class="phpmyadmin-button" target="_blank"><i class="fas fa-database"></i> phpMyAdmin</a>
             </div>
         </div>
     </div>
