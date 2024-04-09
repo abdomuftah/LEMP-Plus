@@ -3,7 +3,7 @@
 clear
 echo ""
 echo "******************************************"
-echo "*      Ubuntu 18 LEMP Server Setup       *"
+echo "*      Ubuntu 22 LEMP Server Setup       *"
 echo "******************************************"
 echo "* This script will install a LEMP stack *"
 echo "* with phpMyAdmin, Node.js, and secure  *"
@@ -30,7 +30,7 @@ add-apt-repository ppa:phpmyadmin/ppa -y
 add-apt-repository ppa:deadsnakes/ppa -y
 add-apt-repository ppa:redislabs/redis -y
 apt update
-
+apt upgrade -y
 # Install additional tools
 echo "=========================================="
 echo " Installing additional tools..."
@@ -94,10 +94,9 @@ echo "=========================================="
 echo " Installing phpMyAdmin..."
 echo "=========================================="
 sleep 3
-DEBIAN_FRONTEND=noninteractive apt install -y phpmyadmin
-
+apt install -y phpmyadmin 
 # Create symbolic link for phpMyAdmin in Nginx web root
-ln -s /usr/share/phpmyadmin /var/www/html/phpmyadmin
+ln -s /usr/share/phpmyadmin /var/www/html/$domain/phpmyadmin
 
 # Set MySQL root password in phpMyAdmin configuration
 mysql -u root -p"$mysql_root_password" -e "GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost' IDENTIFIED BY '$mysql_root_password'; FLUSH PRIVILEGES;"
@@ -188,7 +187,7 @@ echo "current php version of this system PHP-$CURRENT"
 #
 echo "##################################"
 echo "You Can Thank Me On :) "
-echo "https://twitter.com/Scar_Naruto"
+echo "https://twitter.com/ScarNaruto"
 echo "Join My Discord Server "
 echo "https://discord.snyt.xyz"
 echo "##################################"
