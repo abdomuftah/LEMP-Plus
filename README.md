@@ -15,7 +15,7 @@ Nginx / Mariadb / PHP 8.1 + modules / phpMyAdmin / nodeJS / SSL Let's Encrypt / 
 قم بنسخ الامر ال
 
 
-	wget https://l.snyt.xyz/LEMP -O LEMP.sh && chmod +x LEMP.sh
+	wget https://link.snyt.xyz/LEMP -O LEMP.sh && chmod +x LEMP.sh
  
 
 ثم قم بتشغيله عن طريق الامر التالي 
@@ -32,7 +32,7 @@ Nginx / Mariadb / PHP 8.1 + modules / phpMyAdmin / nodeJS / SSL Let's Encrypt / 
 copy this command : 
 
 
-	wget https://l.snyt.xyz/LEMP -O LEMP.sh && chmod +x LEMP.sh
+	wget https://link.snyt.xyz/LEMP -O LEMP.sh && chmod +x LEMP.sh
  
 
 then run it with :
