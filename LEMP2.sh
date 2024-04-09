@@ -13,7 +13,7 @@ echo ""
 
 # Prompt user for domain and email
 read -p 'Set Web Domain (Example: example.com): ' domain
-read -p 'Email for Let's Encrypt SSL: ' email
+read -p 'Email for Lets Encrypt SSL: ' email
 read -sp 'Enter MySQL root password:  ' mysql_root_password
 echo
 
@@ -62,7 +62,23 @@ echo " Installing MySQL..."
 echo "=========================================="
 sleep 3
 apt-get -y install mariadb-server mariadb-client
-mysql_secure_installation
+# Secure MariaDB installation
+sudo mysql_secure_installation <<EOF
+
+Y
+$mysql_root_password
+$mysql_root_password
+Y
+Y
+Y
+Y
+EOF
+
+# Restart MariaDB service
+sudo systemctl restart mariadb
+# Display success message
+echo "MariaDB has been successfully installed and secured."
+sleep 3
 systemctl restart mariadb.service
 
 # Install PHP 8.1 and required modules
@@ -78,7 +94,7 @@ echo "=========================================="
 echo " Installing phpMyAdmin..."
 echo "=========================================="
 sleep 3
-apt-get install -y phpmyadmin
+DEBIAN_FRONTEND=noninteractive apt install -y phpmyadmin
 
 # Create symbolic link for phpMyAdmin in Nginx web root
 ln -s /usr/share/phpmyadmin /var/www/html/phpmyadmin
@@ -88,7 +104,7 @@ mysql -u root -p"$mysql_root_password" -e "GRANT ALL PRIVILEGES ON *.* TO 'root'
 systemctl reload nginx
 
 echo "phpMyAdmin has been installed and configured successfully."
-
+sleep 3
 # Update PHP configuration
 echo "=========================================="
 echo " Updating PHP configuration..."
@@ -107,12 +123,12 @@ echo "=========================================="
 sleep 3
 mkdir /var/www/html/$domain
 chown -R $USER:$USER /var/www/html/$domain
-wget -P /etc/nginx/sites-available https://raw.githubusercontent.com/abdomuftah/LEMP-Plus/main/assets/Example.conf
-mv /etc/nginx/sites-available/Example.conf /etc/nginx/sites-available/$domain.conf
-sed -i "s/example.com/$domain/g" /etc/nginx/sites-available/$domain.conf
+wget -P /etc/nginx/sites-available https://raw.githubusercontent.com/abdomuftah/LEMP-Plus/main/assets/Example
+mv /etc/nginx/sites-available/Example /etc/nginx/sites-available/$domain
+sed -i "s/example.com/$domain/g" /etc/nginx/sites-available/$domain
 rm /etc/nginx/sites-available/default
 wget -P /var/www/html/$domain https://raw.githubusercontent.com/abdomuftah/LEMP-Plus/main/assets/index.php
-ln -s /etc/nginx/sites-available/$domain.conf /etc/nginx/sites-enabled/ 
+ln -s /etc/nginx/sites-available/$domain /etc/nginx/sites-enabled/ 
 rm /var/www/html/index.nginx-debian.html 
 systemctl reload nginx
 service php8.1-fpm reload
@@ -163,18 +179,24 @@ chmod +x sdomain.sh
 apt update
 apt upgrade -y
 clear
-echo "==========================================="
-DISTRO=$(cat /etc/*-release | grep "^ID=" | grep -E -o "[a-z]\w+")
+echo "========================================="
+DISTRO=`cat /etc/*-release | grep "^ID=" | grep -E -o "[a-z]\w+"`
 echo "Your operating system is $DISTRO"
-echo "==========================================="
+echo "========================================="
 CURRENT=$(php -v | head -n 1 | cut -d " " -f 2 | cut -f1-2 -d".")
-echo "Current PHP version of this system PHP-$CURRENT"
-echo "#####################################################"
-echo "You can thank me at: https://twitter.com/ScarNaruto"
-echo "Join My Discord Server at: https://discord.snyt.xyz"
-echo "#####################################################"
-echo "You can add a new domain to your server by typing: ./sdomain.sh in the terminal"
-echo "#####################################################"
-echo "To check your server status, go to: http://$domain:61208"
-echo "#####################################################"
+echo "current php version of this system PHP-$CURRENT"
+#
+echo "##################################"
+echo "You Can Thank Me On :) "
+echo "https://twitter.com/Scar_Naruto"
+echo "Join My Discord Server "
+echo "https://discord.snyt.xyz"
+echo "##################################"
+echo "you can add new domain to your server  "
+echo "by typing : ./sdomain.sh in the terminal  "
+echo "##################################"
+echo "to cheack your server status go to : "
+echo " http://$domain:61208  "
+#
 exit
+
