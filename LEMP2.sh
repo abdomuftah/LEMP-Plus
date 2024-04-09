@@ -122,15 +122,15 @@ echo "=========================================="
 sleep 3
 mkdir /var/www/html/$domain
 chown -R $USER:$USER /var/www/html/$domain
-wget -P /etc/nginx/sites-available https://raw.githubusercontent.com/abdomuftah/LEMP-Plus/main/assets/Example
-mv /etc/nginx/sites-available/Example /etc/nginx/sites-available/$domain
-sed -i "s/example.com/$domain/g" /etc/nginx/sites-available/$domain
-rm /etc/nginx/sites-available/default
+wget -P /etc/nginx/sites-available https://raw.githubusercontent.com/abdomuftah/LEMP-Plus/main/assets/Example.conf
+mv /etc/nginx/sites-available/Example.conf /etc/nginx/sites-available/$domain.conf
+sed -i "s/example.com/$domain/g" /etc/nginx/sites-available/$domain.conf
 wget -P /var/www/html/$domain https://raw.githubusercontent.com/abdomuftah/LEMP-Plus/main/assets/index.php
-ln -s /etc/nginx/sites-available/$domain /etc/nginx/sites-enabled/ 
+ln -s /etc/nginx/sites-available/$domain.conf /etc/nginx/sites-enabled/ 
 rm /var/www/html/index.nginx-debian.html 
 systemctl reload nginx
 service php8.1-fpm reload
+
 
 # Install Node.js
 echo "=========================================="
