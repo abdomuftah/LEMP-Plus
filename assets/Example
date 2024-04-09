@@ -1,17 +1,11 @@
-server {    
-	listen 80;
+server {
+    listen 80;
     listen [::]:80;    
-	
-	# Log files for Debugging
-    access_log /var/log/nginx/laravel-access.log;
-    error_log /var/log/nginx/laravel-error.log; 
-	
-	# Webroot Directory for Laravel project
+
+    server_name example.com www.example.com;
     root /var/www/html/example.com;
-    index index.php index.html index.htm;    
-	
-	# Your Domain Name
-    server_name example.com;
+
+    index index.html index.htm index.php;
 
     location / {
         try_files $uri $uri/ /index.php?$query_string;
@@ -25,7 +19,12 @@ server {
         fastcgi_index index.php;
         fastcgi_param SCRIPT_FILENAME 
 		$document_root$fastcgi_script_name;
+        include snippets/fastcgi-php.conf;
         include fastcgi_params;
     }
-	
-	}
+
+    location ~ /\.ht {
+        deny all;
+    }
+
+}

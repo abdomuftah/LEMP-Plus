@@ -16,8 +16,8 @@ read -p 'Set Web Domain (Example: 127.0.0.1 [Not trailing slash!]) : ' domain
 read -p 'Email for Lets Encrypt SSL : ' email
 #
 apt update
-apt-get update 
-apt dist-upgrade
+apt upgrade -y
+apt dist-upgrade -y
 apt autoremove -y
 apt-get install default-jdk -y
 apt-get install software-properties-common -y
@@ -26,21 +26,21 @@ add-apt-repository ppa:ondrej/php -y
 add-apt-repository ppa:phpmyadmin/ppa -y
 add-apt-repository ppa:deadsnakes/ppa -y
 add-apt-repository ppa:redislabs/redis -y
-add-apt-repository ppa:fkrull/deadsnakes -y
 #
 apt update
-apt-get update 
+apt upgrade -y
 #
 echo "=========================================="
 echo " install some tools to help you more :) "
 echo "=========================================="
 sleep 3
-apt-get install -y screen nano curl git zip unzip ufw certbot 
+apt-get install -y screen nano curl git zip unzip ufw certbot python3-certbot-nginx 
 curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
 apt-get install -y python3.11 libmysqlclient-dev python3-dev python3-pip 
 ln -s /usr/bin/python3.11 /usr/bin/python
 python3 get-pip.py
 python3 -m pip install Django
+rm get-pip.py
 #
 echo "=================================="
 echo "          installing nginx"
@@ -67,14 +67,18 @@ systemctl start mariadb.service
 systemctl enable mariadb.service
 #
 mysql_secure_installation
-systemctl restart mysql.service
+systemctl restart mariadb.service
 #
 echo "=================================="
 echo "   installing PHP 8.1 + modules"
 echo "=================================="
 sleep 3
-apt -y install php8.1 php8.1-curl php8.1-common php8.1-cli php8.1-mysql php8.1-sqlite3 php8.1-intl php8.1-gd php8.1-mbstring php8.1-fpm php8.1-xml php8.1-zip php8.1-bcmath php8.1-sqlite3 php8.1-gd php8.1-intl php8.1-xmlrpc php8.1-soap php8.1-bz2 php8.1-imagick php8.1-tidy tar redis-server sed composer
+apt -y install php8.1 php8.1-curl php8.1-common php8.1-cli php8.1-mysql php8.1-sqlite3 php8.1-intl php8.1-gd php8.1-mbstring php8.1-fpm php8.1-xml php8.1-redis php8.1-zip php8.1-bcmath php8.1-gd php8.1-simplexml php8.1-tokenizer php8.1-dom php8.1-fileinfo php8.1-iconv php8.1-ctype php8.1-intl php8.1-xmlrpc php8.1-soap php8.1-bz2 php8.1-imagick php8.1-tidy
 systemctl reload nginx
+#
+apt -y install tar redis-server sed composer
+systemctl reload nginx
+service php8.1-fpm reload
 #
 echo "=================================="
 echo "  Install and Secure phpMyAdmin"
@@ -86,24 +90,25 @@ echo "=================================="
 echo "      Update php.ini file "
 echo "=================================="
 sleep 3
-wget https://raw.githubusercontent.com/abdomuftah/LEMP-Plus/main/assets/php.ini && cp  -f php.ini /etc/php/8.1/nginx/ && mv -f php.ini /etc/php/8.1/fpm/
+wget https://raw.githubusercontent.com/abdomuftah/LEMP-Plus/main/assets/php.ini && cp  -f php.ini /etc/php/8.1/cli/ && mv -f php.ini /etc/php/8.1/fpm/
 #
 a2enmod rewrite
 systemctl reload nginx
-systemctl reload nginx
+service php8.1-fpm reload
 #
 mkdir /var/www/html/$domain
-wget -P /etc/nginx/sites-available https://raw.githubusercontent.com/abdomuftah/LEMP-Plus/main/assets/Example.conf
-mv /etc/nginx/sites-available/Example.conf /etc/nginx/sites-available/$domain.conf
-sed -i "s/example.com/$domain/g" /etc/nginx/sites-available/$domain.conf
-rm /etc/nginx/sites-available/000-default.conf
+chown -R $USER:$USER /var/www/html/$domain
+wget -P /etc/nginx/sites-available https://raw.githubusercontent.com/abdomuftah/LEMP-Plus/main/assets/Example
+mv nano /etc/nginx/sites-available/Example nano nano /etc/nginx/sites-available/$domain.conf
+sed -i "s/example.com/$domain/g" nano /etc/nginx/sites-available/$domain.conf
+#rm nano /etc/nginx/sites-available/000-default.conf
 wget -P /var/www/html/$domain https://raw.githubusercontent.com/abdomuftah/LEMP-Plus/main/assets/index.php
-ln -s /etc/nginx/sites-available/$domain /etc/nginx/sites-enabled/ 
+ln -s nano /etc/nginx/sites-available/$domain /etc/nginx/sites-enabled/ 
 systemctl reload nginx
 service php8.1-fpm reload
 #
 apt update
-apt-get update 
+apt upgrade -y
 #
 echo "=================================="
 echo "      Installing nodeJS"
@@ -113,6 +118,7 @@ apt-get install -y gcc g++ make nodejs npm
 #
 apt update -y && apt upgrade -y
 systemctl reload nginx
+service php8.1-fpm reload
 #
 echo "=================================="
 echo "    Fixing MySQL And phpMyAdmin"
@@ -148,12 +154,13 @@ rm glances.sh
 a2enmod php8.1
 update-alternatives --set php /usr/bin/php8.1
 systemctl reload nginx
+service php8.1-fpm reload
 #
 wget https://raw.githubusercontent.com/abdomuftah/LEMP-Plus/main/assets/sdomain.sh
 chmod +x sdomain.sh
 #
 apt update
-apt-get update 
+apt upgrade -y
 clear
 #
 echo "========================================="
@@ -170,7 +177,7 @@ echo "Join My Discord Server "
 echo "https://discord.snyt.xyz"
 echo "##################################"
 echo "you can add new domain to your server  "
-echo "by typing : ./domain.sh in the terminal  "
+echo "by typing : ./sdomain.sh in the terminal  "
 echo "##################################"
 echo "to cheack your server status go to : "
 echo " http://$domain:61208  "
