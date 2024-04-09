@@ -17,32 +17,31 @@ read -p 'Email for Lets Encrypt SSL : ' email
 read -p 'mySql Password  : ' sqpass
 #
 apt update
-apt upgrade -y
 apt-get update 
-apt-get upgrade -y
 apt dist-upgrade
 apt autoremove -y
 apt-get install default-jdk -y
 apt-get install software-properties-common -y
-apt-add-repository ppa:webupd8team/java -y
+add-apt-repository ppa:linuxuprising/java -y
 add-apt-repository ppa:ondrej/php -y
 add-apt-repository ppa:phpmyadmin/ppa -y
-#add-apt-repository ppa:deadsnakes/ppa -y
-apt -y install lsb-release apt-transport-https ca-certificates wget -y
-wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
-echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | tee /etc/apt/sources.list.d/php.list
+add-apt-repository ppa:deadsnakes/ppa -y
+add-apt-repository ppa:redislabs/redis -y
+add-apt-repository ppa:fkrull/deadsnakes -y
 #
 apt update
-apt upgrade -y
 apt-get update 
-apt-get upgrade -y
 #
 echo "=========================================="
 echo " install some tools to help you more :) "
 echo "=========================================="
 sleep 3
 apt-get install -y screen nano curl git zip unzip ufw certbot 
-apt-get install -y python3.7 python3-dev python3-pip 
+curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+apt-get install -y python3.11 libmysqlclient-dev python3-dev python3-pip 
+ln -s /usr/bin/python3.11 /usr/bin/python
+python3 get-pip.py
+python3 -m pip install Django
 #
 echo "=================================="
 echo "          installing nginx"
@@ -75,15 +74,14 @@ echo "=================================="
 echo "   installing PHP 8.1 + modules"
 echo "=================================="
 sleep 3
-apt install php8.1 php8.1-curl php8.1-common php8.1-cli php8.1-mysql php8.1-mbstring php8.1-fpm php8.1-xml php8.1-zip php8.1-bcmath php8.1-sqlite3 php8.1-gd php8.1-intl php8.1-exif php8.1-bz2
-apt -y install tar sed composer
+apt -y install php8.1 php8.1-curl php8.1-common php8.1-cli php8.1-mysql php8.1-sqlite3 php8.1-intl php8.1-gd php8.1-mbstring php8.1-fpm php8.1-xml php8.1-zip php8.1-bcmath php8.1-sqlite3 php8.1-gd php8.1-intl php8.1-xmlrpc php8.1-soap php8.1-bz2 php8.1-imagick php8.1-tidy tar redis-server sed composer
 systemctl reload nginx
 #
 echo "=================================="
 echo "  Install and Secure phpMyAdmin"
 echo "=================================="
 sleep 3
-apt-get install -y phpmyadmin php8.1-gettext
+apt-get install -y phpmyadmin
 #
 echo "=================================="
 echo "      Update php.ini file "
@@ -106,9 +104,7 @@ systemctl reload nginx
 service php8.1-fpm reload
 #
 apt update
-apt upgrade -y
 apt-get update 
-apt-get upgrade -y
 #
 echo "=================================="
 echo "      Installing nodeJS"
@@ -117,7 +113,6 @@ sleep 3
 apt-get install -y gcc g++ make nodejs npm 
 #
 apt update -y && apt upgrade -y
-apt-get update && apt-get upgrade -y
 systemctl reload nginx
 #
 echo "=================================="
@@ -151,23 +146,23 @@ systemctl start glances.service
 systemctl enable glances.service
 rm glances.sh
 #
-add-apt-repository -r ppa:ondrej/php -y
-add-apt-repository -r ppa:phpmyadmin/ppa -y
-add-apt-repository -r ppa:webupd8team/java -y
-add-apt-repository -r ppa:chris-lea/redis-server -y
-add-apt-repository -r ppa:deadsnakes/ppa -y
+a2enmod php8.1
+update-alternatives --set php /usr/bin/php8.1
+systemctl reload nginx
 #
 wget https://raw.githubusercontent.com/abdomuftah/LEMP-Plus/main/assets/sdomain.sh
 chmod +x sdomain.sh
 #
 apt update
-apt upgrade -y
 apt-get update 
-apt-get upgrade -y
 clear
 #
-echo "your PHP Ver is :"
-php -v 
+echo "========================================="
+DISTRO=`cat /etc/*-release | grep "^ID=" | grep -E -o "[a-z]\w+"`
+echo "Your operating system is $DISTRO"
+echo "========================================="
+CURRENT=$(php -v | head -n 1 | cut -d " " -f 2 | cut -f1-2 -d".")
+echo "current php version of this system PHP-$CURRENT"
 #
 echo "##################################"
 echo "You Can Thank Me On :) "
