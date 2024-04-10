@@ -1,5 +1,29 @@
 #!/bin/bash
-#
+
+# Function to display error message and exit
+display_error() {
+    echo -e "\e[1;31mError: $1\e[0m"
+    exit 1
+}
+
+# Reset MySQL root password if needed
+sudo mysql -u root <<MYSQL_SCRIPT
+ALTER USER 'root'@'localhost' IDENTIFIED BY '$mysql_root_password';
+FLUSH PRIVILEGES;
+MYSQL_SCRIPT
+
+# Restart MariaDB service
+sudo systemctl restart mariadb || display_error "Failed to restart MariaDB"
+echo -e "\e[1;32mMariaDB has been successfully installed and secured.\e[0m"
+
+# Function to prompt user for input and validate
+get_user_input() {
+    read -p "$1" input
+    if [[ -z "$input" ]]; then
+        display_error "Input cannot be empty"
+    fi
+    echo "$input"
+}
 clear
 echo ""
 echo "******************************************"
@@ -26,7 +50,7 @@ prompt_for_input() {
     echo "$input"
 }
 
-# Prompt user for domain and email
+# Prompt user for domain, email, and MySQL root password
 domain=$(prompt_for_input "Set Web Domain (Example: example.com): ")
 email=$(prompt_for_input "Email for Let's Encrypt SSL: ")
 mysql_root_password=$(prompt_for_input "Enter MySQL root password: ")
